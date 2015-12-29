@@ -10,6 +10,7 @@
 
 $(document).ready(function(){
 	$('.skey').click(function(){
+		$('#' + $("#selval").val()).css("background-color", "#FFFFFF")
 		$(this).css("background-color","#9C9C9C");
 		$("#selval").val(this.id);
 	});
@@ -17,14 +18,15 @@ $(document).ready(function(){
 		if("pet" + $("#selval").val() == this.id){
 			$('#' + $("#selval").val()).css("background-color","#00FF04");
 			$(this).css("background-color","#00FF04");
+			$('#' + $("#selval").val()).off('click').addClass('.deactivated');
+			$('#pet' + $("#selval").val()).off('click').addClass('.deactivated');
+			$("#selval").val(-1);
 		}else{			
-			$(this).css("background-color","#FF0000");
-//			setTimeout(function(){ },5000); 
-//			$(this).delay(2500).css("background-color","#FFFFFF");
-			setTimeout(function (){
-				$(this).css("background-color","#FFFFFF");	
-				alert('go');		
-			}, 1000);
+			$(this).css("background-color","#FF0000").delay(700).queue(
+				function() {
+            		$(this).css("background-color", "#FFFFFF").dequeue();
+            		$('#' + $("#selval").val()).css("background-color", "#FFFFFF").dequeue();
+            	});
 		}
 	});
 
